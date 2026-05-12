@@ -1,0 +1,30 @@
+version: '3.8'
+
+services:
+
+  web:
+    build: .
+    container_name: smart_web
+    ports:
+      - "8080:80"
+    volumes:
+      - ./:/var/www/html
+
+  db:
+    image: mysql:8.0
+    container_name: smart_db
+    restart: always
+    environment:
+      MYSQL_ROOT_PASSWORD: root
+      MYSQL_DATABASE: db_office_smart
+    ports:
+      - "3307:3306"
+
+  phpmyadmin:
+    image: phpmyadmin/phpmyadmin
+    container_name: smart_pma
+    restart: always
+    ports:
+      - "8081:80"
+    environment:
+      PMA_HOST: db
